@@ -1,0 +1,95 @@
+.game-container {
+  padding: 20px 0;
+  position: relative;
+  margin: auto;
+  height: 50vh;
+  width: 100%;
+  min-width: 600px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.main-column{
+  width: 60vw;
+}
+.figure-container {
+  position: absolute;
+  fill: transparent;
+  left: 80px;
+  stroke: #3a3a3a;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+.wrong-letters-container {
+  position: absolute;
+  top: 50px;
+  right: 80px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.wrong-letters-container p {
+  font-size: 20px;
+  margin: 0 0 5px;
+}
+
+.wrong-letters-container span {
+  font-size: 35px;
+}
+
+.word {
+  display: flex;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.letter {
+  border-bottom: 3px solid #54bc6c;
+  display: inline-flex;
+  font-size: 35px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 6px;
+  height: 55px;
+  width: 20px;
+}
+
+.popup-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background: #54bc6c;
+  border-radius: 5px;
+  box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.popup h2,
+.popup h3 {
+  color: #fff;
+}
+
+.popup button {
+  cursor: pointer;
+  background-color: #fff;
+  color: #54bc6c;
+  border: 0;
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.popup button:active {
+  transform: scale(0.98);
+}
+
+.popup button:focus {
+  outline: 0;
+}
