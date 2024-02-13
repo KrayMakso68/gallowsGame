@@ -38,36 +38,22 @@ import GameWord from "components/GameWord.vue";
 import {computed, ref, watch} from "vue";
 import axios from "axios";
 import {getRandomName} from "src/api/getRandomName";
+import {useRandomWord} from "src/composables/useRandomWord";
+import {useLettres} from "src/composables/useLetters";
+import {useNotification} from "src/composables/useNotification";
 
 
-const word = ref("")
-const getRandomWord = async () => {
-  try {
-    const name = await getRandomName()
-    word.value = name.toLowerCase()
-  } catch (err) {
-    console.log(err)
-    word.value = ''
-  }
-}
+const {word, getRandomWord} = useRandomWord()
+const {letters, correctLetters, wrongLetters, isLose, isWin, addLetter, resetLetters} = useLettres(word)
+const {notification, showNotification} = useNotification()
 
-getRandomWord()
-
-const letters = ref<string[]>([])
-const correctLetters = computed(() => {
-  return letters.value.filter(x => word.value.includes(x))
-})
-const wrongLetters = computed(() => {
-  return letters.value.filter(x => !word.value.includes(x))
-})
-const isLose = computed(() => {
-  return wrongLetters.value.length === 6
-})
-const isWin = computed(() => {
-  return [...word.value].every(x => correctLetters.value.includes(x))
-})
-const notification = ref<InstanceType<typeof GameNotification> | null>(null)
 const popup = ref<InstanceType<typeof GamePopup> | null>(null)
+
+const restart = async () => {
+  await getRandomWord()
+  resetLetters()
+  popup.value?.close()
+}
 
 watch(wrongLetters, () => {
   if (isLose.value) {
@@ -85,17 +71,9 @@ window.addEventListener('keydown', ({key}) => {
     return
   }
   if (letters.value.includes(key)) {
-    notification.value?.open()
-    setTimeout(() => notification.value?.close(), 1800)
+    showNotification()
     return
   }
-  if(/[а-яА-ЯёЁ]/.test(key)) {
-    letters.value.push(key.toLowerCase())
-  }
+  addLetter(key)
 })
-const restart = async () => {
-  await getRandomWord()
-  letters.value = []
-  popup.value?.close()
-}
 </script>

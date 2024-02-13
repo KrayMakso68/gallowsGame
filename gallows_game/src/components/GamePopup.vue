@@ -11,7 +11,7 @@
           <h2>Вы проиграли. 😕</h2>
           <h3>...имя: {{word}}</h3>
         </template>
-        <button @click="emit('restart')">Сыграть еще раз</button>
+        <button autofocus @click="emit('restart')">Сыграть еще раз</button>
       </div>
     </div>
   </q-dialog>
