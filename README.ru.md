@@ -65,38 +65,38 @@
 ```mermaid
 flowchart TD
     subgraph Browser["Интерфейс пользователя"]
-        KB["Событие ввода ('keydown')"]
+        KB["Событие ввода keydown"]
     end
 
-    subgraph Page["IndexPage.vue (Оркестратор)"]
-        UL["useLetters(word)"]
-        URW["useRandomWord()"]
-        UN["useNotification()"]
+    subgraph Page["IndexPage.vue — Оркестратор"]
+        UL["useLetters"]
+        URW["useRandomWord"]
+        UN["useNotification"]
     end
 
     subgraph UIComponents["Компоненты отображения"]
-        GH["GameHeader.vue (Заголовок)"]
-        GF["GameFigure.vue (SVG-фигура)"]
-        GWL["GameWrongLetters.vue (Ошибки)"]
-        GW["GameWord.vue (Слово и слоты)"]
-        GN["GameNotification.vue (Тост)"]
-        GP["GamePopup.vue (Диалог завершения)"]
+        GH["GameHeader.vue"]
+        GF["GameFigure.vue — SVG-фигура"]
+        GWL["GameWrongLetters.vue"]
+        GW["GameWord.vue"]
+        GN["GameNotification.vue"]
+        GP["GamePopup.vue"]
     end
 
     subgraph API["Внешние сервисы"]
         RDT["REST API Random Data Tools"]
     end
 
-    KB -->|Физическое нажатие клавиши| Page
-    URW -->|Axios GET-запрос| RDT
-    URW -->|Реактивное слово (word ref)| UL
-    Page -->|wrongLetters.length| GF
-    Page -->|wrongLetters| GWL
-    Page -->|word, correctLetters| GW
-    UL -->|isWin / isLose| GP
+    KB -->|Ввод символа| Page
+    URW -->|Axios GET запрос| RDT
+    URW -->|Реактивное слово word| UL
+    Page -->|Количество ошибок| GF
+    Page -->|Ошибочные буквы| GWL
+    Page -->|Слово и отгаданные буквы| GW
+    UL -->|isWin или isLose| GP
     UL -->|Повторный ввод буквы| UN
     UN -->|Показ уведомления| GN
-    GP -->|Событие перезапуска (restart)| Page
+    GP -->|Перезапуск игры| Page
 ```
 
 ---

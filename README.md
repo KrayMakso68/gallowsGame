@@ -65,22 +65,22 @@ The game logic is fully separated from visual rendering into dedicated, testable
 ```mermaid
 flowchart TD
     subgraph Browser["Client Interface"]
-        KB["Keyboard Input ('keydown')"]
+        KB["Keyboard Input keydown"]
     end
 
-    subgraph Page["IndexPage.vue (Orchestrator)"]
-        UL["useLetters(word)"]
-        URW["useRandomWord()"]
-        UN["useNotification()"]
+    subgraph Page["IndexPage.vue — Orchestrator"]
+        UL["useLetters"]
+        URW["useRandomWord"]
+        UN["useNotification"]
     end
 
     subgraph UIComponents["Presentational Components"]
         GH["GameHeader.vue"]
-        GF["GameFigure.vue (Dynamic SVG)"]
+        GF["GameFigure.vue — Dynamic SVG"]
         GWL["GameWrongLetters.vue"]
-        GW["GameWord.vue (Revealed blanks)"]
+        GW["GameWord.vue"]
         GN["GameNotification.vue"]
-        GP["GamePopup.vue (Quasar Dialog)"]
+        GP["GamePopup.vue"]
     end
 
     subgraph API["External Services"]
@@ -88,15 +88,15 @@ flowchart TD
     end
 
     KB -->|Physical keystroke| Page
-    URW -->|Axios GET| RDT
-    URW -->|word ref| UL
-    Page -->|wrongLetters.length| GF
-    Page -->|wrongLetters| GWL
-    Page -->|word, correctLetters| GW
-    UL -->|isWin / isLose| GP
+    URW -->|Axios GET request| RDT
+    URW -->|Reactive word ref| UL
+    Page -->|wrongLetters count| GF
+    Page -->|wrongLetters array| GWL
+    Page -->|word and correctLetters| GW
+    UL -->|isWin or isLose| GP
     UL -->|Duplicate letter detected| UN
     UN -->|Trigger visibility| GN
-    GP -->|Restart Event| Page
+    GP -->|Restart game event| Page
 ```
 
 ---
